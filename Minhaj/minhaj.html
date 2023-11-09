@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+</head>
+  <body>
+    <div class="container">  
+
+      <form action="/action_page.php">
+        <div class="form-group" >
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" placeholder="Enter email" id="email" required onkeyup="displayemail()">
+          <span class="text-danger" id="email-danger-span"></span>
+          <span class="text-success" id="email-success-span"></span>
+        </div>
+        <div class="form-group" >
+          <label for="pwd" >Password:</label>
+          <input type="password" class="form-control" placeholder="Enter password" id="pwd" required onkeyup="displaypwd()">
+          <span class="text-danger" id="pwd-danger-span"></span>
+          <span class="text-primary" id="pwd-medium-span"></span>
+          <span class="text-success" id="pwd-success-span"></span>
+        </div>
+        <div class="form-group form-check">
+          <label class="form-check-label">
+          <input class="form-check-input" type="checkbox"> Remember me
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form> 
+    </div>
+    <script>
+      function displayemail(){
+        var email = document.getElementById("email").value;
+       // alert(email.value);
+       if(email.length<8){
+               document.getElementById("email-danger-span").innerHTML = "must 8";
+               document.getElementById("email-success-span").innerHTML = "";
+       }
+       else{
+        document.getElementById("email-success-span").innerHTML = "secure";
+        document.getElementById("email-danger-span").innerHTML = "";
+       }
+
+      }
+     function displaypwd(){
+        var pwd = document.getElementById("pwd").value;
+       // alert(email.value);
+       if(pwd.length<4){
+               document.getElementById("pwd-danger-span").innerHTML = "Password not secure. Must 8 character long";
+               document.getElementById("pwd-success-span").innerHTML = "";
+               document.getElementById("pwd-medium-span").innerHTML = "";
+       }
+       else if(pwd.length<8){
+               document.getElementById("pwd-medium-span").innerHTML = "Password medium secure. Give 8 character for better";
+               document.getElementById("pwd-success-span").innerHTML = "";
+               document.getElementById("pwd-danger-span").innerHTML = "";
+       }
+       else{
+        document.getElementById("pwd-success-span").innerHTML = "Your password is secure";
+        document.getElementById("pwd-danger-span").innerHTML = "";
+        document.getElementById("pwd-medium-span").innerHTML = "";
+       }
+
+      }
+    </script>
+  </body>
+</html>
