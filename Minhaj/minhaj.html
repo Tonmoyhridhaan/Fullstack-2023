@@ -34,14 +34,15 @@
     </div>
     <script>
       function displayemail(){
-        var email = document.getElementById("email").value;
+        var email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        
        // alert(email.value);
        if(email.length<8){
-               document.getElementById("email-danger-span").innerHTML = "must 8";
+               document.getElementById("email-danger-span").innerHTML = "email invalid";
                document.getElementById("email-success-span").innerHTML = "";
        }
        else{
-        document.getElementById("email-success-span").innerHTML = "secure";
+        document.getElementById("email-success-span").innerHTML = "valid";
         document.getElementById("email-danger-span").innerHTML = "";
        }
 
