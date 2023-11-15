@@ -35,7 +35,8 @@
     <script>
         var button = document.getElementById("button");
         button.disabled = true;
-        function checkEmail(){
+        
+           function checkEmail(){
             
            
             var email = document.getElementById("email").value;
@@ -74,21 +75,25 @@
                 document.getElementById("password-danger-span").innerHTML = "Your password must be 6 character long";
                 document.getElementById("password-warning-span").innerHTML = "";
                 document.getElementById("password-success-span").innerHTML = "";
+                button.disabled = true;
 
             }
             else if(pass.length<8){
                 document.getElementById("password-warning-span").innerHTML = "Your password is poor";
                 document.getElementById("password-danger-span").innerHTML = "";
                 document.getElementById("password-success-span").innerHTML = "";
+                button.disabled = true;
                 
             }
             else{
                 document.getElementById("password-success-span").innerHTML = "Your password is secure";
                 document.getElementById("password-danger-span").innerHTML = "";
                 document.getElementById("password-warning-span").innerHTML = "";
+                button.disabled = false;
             }
             
         }
+      
     </script>
     
 </body>   
