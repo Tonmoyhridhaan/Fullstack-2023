@@ -13,7 +13,7 @@
       <form action="/action_page.php">
         <div class="form-group" >
           <label for="email">Email address:</label>
-          <input type="email" class="form-control" placeholder="Enter email" id="email" required onkeyup="displayemail()">
+          <input type="email" class="form-control" placeholder="Enter email" id="email" required onkeyup="checkEmail()">
           <span class="text-danger" id="email-danger-span"></span>
           <span class="text-success" id="email-success-span"></span>
         </div>
@@ -29,41 +29,60 @@
           <input class="form-check-input" type="checkbox"> Remember me
           </label>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" id="button">Submit</button>
       </form> 
     </div>
     <script>
-      function displayemail(){
-        var email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        
-       // alert(email.value);
-       if(email.length<8){
-               document.getElementById("email-danger-span").innerHTML = "email invalid";
-               document.getElementById("email-success-span").innerHTML = "";
-       }
-       else{
-        document.getElementById("email-success-span").innerHTML = "valid";
-        document.getElementById("email-danger-span").innerHTML = "";
-       }
-
-      }
-     function displaypwd(){
+      //js
+      var button = document.getElementById("button");
+        button.disabled = true;
+        function checkEmail(){
+                       
+            var email = document.getElementById("email").value;
+            valids = ["gmail.com", "yahoo.com", "outlook.com"]
+            if(email.indexOf('@') != -1 ){
+              var domain = email.split('@')[1];
+              for(let i=0; i<valids.length; i++){
+                if(domain == valids[i]){
+                  document.getElementById("email-success-span").innerHTML = "valid email";
+                  document.getElementById("email-danger-span").innerHTML = "";
+                  button.disabled = false;
+                  break;
+                
+                }
+                else{
+                  document.getElementById("email-success-span").innerHTML = "";
+                  document.getElementById("email-danger-span").innerHTML = "invalid email";
+                  button.disabled = true;
+                }
+              }              
+            }
+            else{
+              document.getElementById("email-success-span").innerHTML = "";
+                document.getElementById("email-danger-span").innerHTML = "";
+                button.disabled = true;
+            }
+        }
+      function displaypwd(){
         var pwd = document.getElementById("pwd").value;
        // alert(email.value);
        if(pwd.length<4){
                document.getElementById("pwd-danger-span").innerHTML = "Password not secure. Must 8 character long";
                document.getElementById("pwd-success-span").innerHTML = "";
                document.getElementById("pwd-medium-span").innerHTML = "";
+               button.disabled = true;
        }
        else if(pwd.length<8){
                document.getElementById("pwd-medium-span").innerHTML = "Password medium secure. Give 8 character for better";
                document.getElementById("pwd-success-span").innerHTML = "";
                document.getElementById("pwd-danger-span").innerHTML = "";
+               button.disabled = true;
        }
        else{
         document.getElementById("pwd-success-span").innerHTML = "Your password is secure";
         document.getElementById("pwd-danger-span").innerHTML = "";
         document.getElementById("pwd-medium-span").innerHTML = "";
+        button.disabled = false;
        }
 
       }
