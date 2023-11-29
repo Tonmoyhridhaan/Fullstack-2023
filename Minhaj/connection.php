@@ -2,7 +2,7 @@
 $username = "root";
 $password = "";
 $hostname = "localhost"; 
-$db = "fullstack";
+$db = "demo";
 
 $conn = mysqli_connect($hostname, $username, $password, $db);
 
