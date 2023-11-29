@@ -36,8 +36,9 @@
       //js
       var button = document.getElementById("button");
         button.disabled = true;
-        function checkEmail(){
-                       
+        var k = true, j = true;
+
+        function checkEmail(){                       
             var email = document.getElementById("email").value;
             valids = ["gmail.com", "yahoo.com", "outlook.com"]
             if(email.indexOf('@') != -1 ){
@@ -46,7 +47,7 @@
                 if(domain == valids[i]){
                   document.getElementById("email-success-span").innerHTML = "valid email";
                   document.getElementById("email-danger-span").innerHTML = "";
-                  button.disabled = false;
+                  k = false;
                   break;
                 
                 }
@@ -70,21 +71,28 @@
                document.getElementById("pwd-danger-span").innerHTML = "Password not secure. Must 8 character long";
                document.getElementById("pwd-success-span").innerHTML = "";
                document.getElementById("pwd-medium-span").innerHTML = "";
-               button.disabled = true;
        }
        else if(pwd.length<8){
                document.getElementById("pwd-medium-span").innerHTML = "Password medium secure. Give 8 character for better";
                document.getElementById("pwd-success-span").innerHTML = "";
                document.getElementById("pwd-danger-span").innerHTML = "";
-               button.disabled = true;
+
        }
        else{
         document.getElementById("pwd-success-span").innerHTML = "Your password is secure";
         document.getElementById("pwd-danger-span").innerHTML = "";
         document.getElementById("pwd-medium-span").innerHTML = "";
-        button.disabled = false;
+        j = false;
        }
 
+      }
+      if(k==false && j == flase)
+      {
+        button.disabled = false;
+      }
+      else
+      {
+        button.disabled = true;
       }
     </script>
   </body>
