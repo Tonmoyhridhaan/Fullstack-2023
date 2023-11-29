@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employees table</title>
+    <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-   </head>
+</head>
 <body>
 <div class="container">
   <h2>Employees Table</h2>
@@ -33,10 +33,10 @@
       </tr>
     </thead>
     <tbody>
-        <?php
-            include 'connection.php';
+    <?php
+            include '../connection.php';
             $sql = "SELECT * FROM employees";
-            $result = mysqli_query($con,$sql);
+            $result = mysqli_query($conn,$sql);
             while ($row = mysqli_fetch_array($result)) {
         ?>
       <tr>
@@ -56,39 +56,5 @@
     </tbody>
   </table>
 </div>
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script>
-    const minEl = document.querySelector('#min');
-    const maxEl = document.querySelector('#max');
-    
-    // Custom range filtering function
-    DataTable.ext.search.push(function (settings, data, dataIndex) {
-        let min = parseInt(minEl.value, 10);
-        let max = parseInt(maxEl.value, 10);
-        let age = parseFloat(data[2]) || 0; // use data for the age column
-    
-        if (
-            (isNaN(min) && isNaN(max)) ||
-            (isNaN(min) && age <= max) ||
-            (min <= age && isNaN(max)) ||
-            (min <= age && age <= max)
-        ) {
-            return true;
-        }
-    
-        return false;
-    });
-    
-    const table = new DataTable('#example');
-    
-    // Changes to the inputs will trigger a redraw to update the table
-    minEl.addEventListener('input', function () {
-        table.draw();
-    });
-    maxEl.addEventListener('input', function () {
-        table.draw();
-    });
-</script>
 </body>
 </html>

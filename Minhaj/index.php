@@ -1,5 +1,5 @@
 
-<?php include 'connection.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,17 +27,18 @@
         <button type="submit" name="submit" value="submit" class="btn btn-primary">Login</button>
     </form>
     <?php
+     include 'connection.php';
   
-        if($_POST['submit']){
+            if(isset($_POST['submit'])){
             $email = $_POST['email'];
             $pswd = $_POST['pswd'];
             
             $query = "SELECT * FROM admins WHERE email='$email' AND password='$pswd' ";
-            $result = mysqli_query($con,$query);
+            $result = mysqli_query($conn,$query);
             $admin = mysqli_fetch_array($result);
 
             $query = "SELECT * FROM employees WHERE email='$email' AND password='$pswd' ";
-            $result = mysqli_query($con,$query);
+            $result = mysqli_query($conn,$query);
             $employee = mysqli_fetch_array($result);
 
             if($admin){
