@@ -1,4 +1,16 @@
 
+<?php
+ session_start();
+ if(isset($_SESSION['user'])){
+    if($_SESSION['user']=='admin'){
+        header('Location: admin/dashboard.php');
+    }
+    else if($_SESSION['user']=='employee'){
+        header('Location: employee/dashboard.php');
+    
+ }
+ }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
