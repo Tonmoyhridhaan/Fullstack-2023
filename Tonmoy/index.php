@@ -5,10 +5,10 @@
         header('Location: admin/dashboard.php');
     }
     else if($_SESSION['user']=='employee'){
-        header('Location: employee/dashboard.php');
-    
+        header('Location: employee/dashboard.php'); 
+    }
  }
- }
+
 ?>
 
 <!DOCTYPE html>
@@ -29,13 +29,14 @@
   <p>Enter Your email and password to login</p>
   <div class="card" style="width:500px">
     <form method="post" class="pl-5 pr-5 pb-5 pt-5">
+
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
         </div>
         <div class="form-group">
             <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
         </div>
         
         <button type="submit" name="submit" value="submit" class="btn btn-primary">Login</button>
