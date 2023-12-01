@@ -6,8 +6,8 @@
     }
     else if($_SESSION['user']=='employee'){
         header('Location: employee/dashboard.php');
-    
- }
+    }
+  }
 
 ?>
 
