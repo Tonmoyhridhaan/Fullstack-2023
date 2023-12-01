@@ -30,13 +30,14 @@
             while ($row = mysqli_fetch_array($result)) {
         ?>
       <tr>
+        
         <td><?php echo $row['name']; ?></td>
         <td><?php echo $row['email']; ?></td>
         <td><?php echo $row['age']; ?></td>
         <td><?php echo $row['salary']; ?></td>
         <td><?php echo $row['location']; ?></td>
         <td>
-            <button class="btn btn-warning">Edit</button>
+             <a class="btn btn-secondary" href="edit.php?id=<?php echo $row['id'] ?>" >Edit</a>
             <button class="btn btn-danger">Delete</button>
         </td>
        
