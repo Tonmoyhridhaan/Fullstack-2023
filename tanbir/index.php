@@ -1,90 +1,148 @@
-<?php include 'connection.php'; 
-session_start();?>
+<?php
+ session_start();
+ if(isset($_SESSION['user'])){
+    if($_SESSION['user']=='admin'){
+        header('Location: admin/dashboard.php');
+    }
+    else if($_SESSION['user']=='employee'){
+        header('Location: employee/dashboard.php');
+    
+ }
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="author" content="Muhamad Nauval Azhar">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="description" content="This is a login page template based on Bootstrap 5">
-	<title>Login Page</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<section class="h-100">
-		<div class="container h-100">		  
-			<div class="row justify-content-sm-center h-100">
-				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-				  <form action="" method="post">
-					<div class="text-center my-5">
-						<img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="logo" width="100">
-					</div>
-					<div class="card shadow-lg">
-						<div class="card-body p-5">
-							<h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
-							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
-								<div class="mb-3">
-									<label class="mb-2 text-muted" for="email">E-Mail Address</label>
-									<input type="text" name="email" class="form-control" id="" required autofocus>
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
-								</div>
+ 
+<div class="container">
+  <h2>Login Page</h2>
+  <p>Enter Your email and password to login</p>
+  <div class="card" style="width:500px">
+    <form method="post" class="pl-5 pr-5 pb-5 pt-5">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" onkeyup="checkEmail()" name="email">
+            <span class="text-danger" id="email-danger-span"></span>
+            <span class="text-success" id="email-success-span"></span>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd" placeholder="Enter password" onkeyup="displayPassword()" name="pswd">
+            <span class="text-danger" id="password-danger-span"></span>
+            <span class="text-warning" id="password-warning-span"></span>
+            <span class="text-success" id="password-success-span"></span>
+        </div>
+        
+        <button type="submit" name="submit" id="button" value="submit" class="btn btn-primary">Login</button>
+    </form>
+    <?php
+        include 'connection.php';
+        if($_POST['submit']){
+            $email = $_POST['email'];
+            $pswd = $_POST['pswd'];
+            
+            $query = "SELECT * FROM admins WHERE email='$email' AND password='$pswd' ";
+            $result = mysqli_query($con,$query);
+            $admin = mysqli_fetch_array($result);
 
-								<div class="mb-3">
-									<div class="mb-2 w-100">
-										<label class="text-muted" for="password">Password</label>
-									</div>
-									<input type="password" name="password" class="form-control" id="" required>
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
-								</div>
-								<div class="d-flex align-items-center">
-									<div class="form-check">
-										<input type="checkbox" name="remember" id="remember" class="form-check-input">
-										<label for="remember" class="form-check-label">Remember Me</label>
-									</div>
-									<button type="submit" name="loginBtn" class="btn btn-primary ms-auto" >
-										Login
-									</button>
-								</div>
-							</form>
-						</div>
-						<div class="card-footer py-3 border-0">
-							<div class="text-center">
-								Don't have an account? <a href="registration.php" class="text-dark">Create</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<script src="js/login.js"></script>
-</body>
-</html>
-<?php 
-    if(isset($_POST['loginBtn'])){
-        $email = $_POST['email'];
-        $password = md5($_POST['password']);
-        $s = "select * from department_admins where email='".$email."' 
-        and password='".$password."'";
-        $q = mysqli_query($conn, $s);
-        if($r=mysqli_fetch_assoc($q)){
-            $status = $r['status'];
-            if($status){
-                // save user data into session
-                $_SESSION['user_name'] = $r['name'];
-                $_SESSION['user_role'] = $r['role'];
-              
-                if( $_SESSION['user_role']==$r['role']){
-                    header('Location: dashboard.php');
-                }
+            $query = "SELECT * FROM employees WHERE email='$email' AND password='$pswd' ";
+            $result = mysqli_query($con,$query);
+            $employee = mysqli_fetch_array($result);
+
+            if($admin){
+                $_SESSION['user'] = 'admin';
+                $_SESSION['id'] = $admin['id'];
+                header("Location: admin/dashboard.php");
+            }
+            else if($employee){
+                $_SESSION['user'] = 'employee';
+                $_SESSION['id'] = $employee['id'];
+                header("Location: employee/dashboard.php");
             }
             else{
-                echo 'Not Approved';
+                echo "<span class='text-center text-danger' >Invalid Email or Password!</span>";
             }
+
+
         }
-    }
+
+    ?>
+  </div>
+  <br>
+   
+</div>
+<script>
+        var button = document.getElementById("button");
+        button.disabled = true;
+        
+           function checkEmail(){
+
+            var email = document.getElementById("email").value;
+            valids = ["gmail.com", "yahoo.com", "outlook.com"]
+            if(email.indexOf('@') != -1 ){
+              var domain = email.split('@')[1];
+              for(let i=0; i<valids.length; i++){
+                if(domain == valids[i]){
+                  document.getElementById("email-success-span").innerHTML = "valid email";
+                  document.getElementById("email-danger-span").innerHTML = "";
+                  button.disabled = false;
+                  break;
+                
+                }
+                else{
+                  document.getElementById("email-success-span").innerHTML = "";
+                  document.getElementById("email-danger-span").innerHTML = "invalid email";
+                  button.disabled = true;
+                }
+
+              }
+              
+            }
+            else{
+              document.getElementById("email-success-span").innerHTML = "";
+                document.getElementById("email-danger-span").innerHTML = "";
+                button.disabled = true;
+            }
+ 
+        }
+        function displayPassword(){
+            var pass = document.getElementById("pwd").value;
+            //alert(email.value);
+            
+            if(pass.length<6){
+                document.getElementById("password-danger-span").innerHTML = "Your password must be 6 character long";
+                document.getElementById("password-warning-span").innerHTML = "";
+                document.getElementById("password-success-span").innerHTML = "";
+                button.disabled = true;
+
+            }
+            else if(pass.length<8){
+                document.getElementById("password-warning-span").innerHTML = "Your password is poor";
+                document.getElementById("password-danger-span").innerHTML = "";
+                document.getElementById("password-success-span").innerHTML = "";
+                button.disabled = true;
+                
+            }
+            else{
+                document.getElementById("password-success-span").innerHTML = "Your password is secure";
+                document.getElementById("password-danger-span").innerHTML = "";
+                document.getElementById("password-warning-span").innerHTML = "";
+                button.disabled = false;
+            }
+            
+        }
+      
+    </script>
+</body>
+</html>
