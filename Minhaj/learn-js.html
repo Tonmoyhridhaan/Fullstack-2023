@@ -54,7 +54,7 @@
                 else{
                   document.getElementById("email-success-span").innerHTML = "";
                   document.getElementById("email-danger-span").innerHTML = "invalid email";
-                  button.disabled = true;
+                  k = false;
                 }
               }              
             }
@@ -76,7 +76,7 @@
                document.getElementById("pwd-medium-span").innerHTML = "Password medium secure. Give 8 character for better";
                document.getElementById("pwd-success-span").innerHTML = "";
                document.getElementById("pwd-danger-span").innerHTML = "";
-
+               j = false;
        }
        else{
         document.getElementById("pwd-success-span").innerHTML = "Your password is secure";
