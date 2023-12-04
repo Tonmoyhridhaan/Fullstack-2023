@@ -1,6 +1,5 @@
 <?php
     session_start();
-
     //authentication
     if(!isset($_SESSION['user'])){
         header('Location: ../logout.php');

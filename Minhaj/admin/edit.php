@@ -51,5 +51,5 @@ if(isset($_POST['submitBtn'])){
     $r_loc = $_POST['location'];
 
     $query= "UPDATE name SET name='".$r_name."',email='".$r_email."'
-}
+
 ?>
