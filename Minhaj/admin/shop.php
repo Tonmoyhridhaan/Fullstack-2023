@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                 <label for="email">Sub - Catagory:</label>
-                <select class="form-control" id="subcatagory" name = "subcatagory">
+                <select class="form-control" id="subcatagory" name = "subcatagory"></select>
 
             </div> 
             <button type="submit" name="submit" value="submit" class="btn btn-primary">Login</button>
@@ -53,21 +53,21 @@
             $(document).ready(function(){
                 $('#catagory').change(function(){
                     var cat= $('#catagory').val();
+                    //alert(cat);
                     $.ajax({
                         url: 'getsubcat.php',
                         dataType:"json",
-                        dtat : {
+                        data : {
                             "cat" : cat
                         },
                         success : function(res){
                             //console.log(res);
-                            $("#subcatagory").html(" <option value=" ">--Choose Sub Catagory---</option>");
+                            $("#subcatagory").html("<option value=''> --Choose Sub Catagory--- </option>");
                             $.each(res, function(i, item) {
-                                $("#subcatagory").append(" <option value='"+item.id"'>"+item
-                                .name+"</option>");
+                                $("#subcatagory").append(" <option value='"+item.id+"'>"+item.name+"</option>");
                             });
                         }
-                    })
+                    });
                 });
             });
         </script>
