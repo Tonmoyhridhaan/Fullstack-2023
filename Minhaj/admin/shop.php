@@ -31,11 +31,8 @@
                         $query = "SELECT * FROM catagories";
                         $result = mysqli_query($conn, $query);
                         while($row = mysqli_fetch_array($result)){
-
-
                     ?>
                     <option value="<?php echo $row['id'];?>"><?php echo $row['name'];?></option>
-                    
                     <?php
                         }
                     ?>
