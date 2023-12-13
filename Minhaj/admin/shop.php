@@ -9,8 +9,8 @@
     <body>
     
     <div class="container">
-    <h2>Login Page</h2>
-    <p>ONline Shop</p>
+    <p>Login Page</p>
+    <h1>All district selection Using json</h1>
     <div class="card" style="width:500px">
         <form method="post" class="pl-5 pr-5 pb-5 pt-5">
             <div class="form-group">
@@ -18,17 +18,14 @@
                 <input type="text" class="form-control" id="email" placeholder="Enter email" name="name">
             </div>
             <div class="form-group">
-                <label for="email">price:</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter email" name="price">
-            </div>
-            <div class="form-group">
                 <label for="email">Quantity:</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter email" name="quantity">
+                <input type="number" class="form-control" id="email" placeholder="Enter email" name="quantity">
             </div>
             <div class="form-group">
                 <label for="email">Catagory:</label>
                
-                <select class="form-control" id="sel1" name = "category">
+                <select class="form-control" id="catagory" name = "catagory">
+                   <option value=" ">--Choose Catagory---</option>
                     <?php
                         include '../connection.php';
                         $query = "SELECT * FROM catagories";
@@ -44,13 +41,49 @@
                     ?>
                 </select>
             </div>
-            
+            <div class="form-group">
+                <label for="email">Sub - Catagory:</label>
+                <select class="form-control" id="subcatagory" name = "subcatagory">
+
+            </div> 
             <button type="submit" name="submit" value="submit" class="btn btn-primary">Login</button>
         </form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('#catagory').change(function(){
+                    var cat= $('#catagory').val();
+                    $.ajax({
+                        url: 'getsubcat.php',
+                        dataType:"json",
+                        dtat : {
+                            "cat" : cat
+                        },
+                        success : function(res){
+                            //console.log(res);
+                            $("#subcatagory").html(" <option value=" ">--Choose Sub Catagory---</option>");
+                            $.each(res, function(i, item) {
+                                $("#subcatagory").append(" <option value='"+item.id"'>"+item
+                                .name+"</option>");
+                            });
+                        }
+                    })
+                });
+            });
+        </script>
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 <?php 
-include '../connection.php';
 if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $pswd = $_POST['pswd'];
