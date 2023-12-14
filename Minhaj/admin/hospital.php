@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
     <body>
     
@@ -73,27 +73,44 @@
                  
 
               </tbody>
+              <tfoot>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td id= "total">0</td>
+                </tr>
+              </tfoot>
             </table>
+
+
+
         </div>
     </div>
-    
-
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
        
         <script>
+        
+            
+            var total=0;
             $(document).ready(function(){
+                var dataTable = $('#example').DataTable();
                 $('.btn').click(function(){
                     var test = $(this).text();
                     var cost = $(this).val();
-                    alert(test+" "+cost);
+                    total = parseInt(total) + parseInt(cost);
+   
                     var newRow = $("<tr>").append(
                         $("<td>").text(test),
                         $("<td>").text(cost)
                     );
-                    $("#example tbody").append(newRow);
-                });
-                    
-            });
+                    dataTable.row.add(newRow).draw();
 
+                  $("#total").html(total);
+                 });
+            });
+        </script>
+        <script>
+            new DataTable('#example');
         </script>
     </body>
 </html>
