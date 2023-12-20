@@ -5,15 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+ 
 </head>
     <body>
         <div class="container">
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="usr">Image:</label>
-                    <input type="file" class="form-control" id="usr" name="image">
-                    <img id="output"/>
+                    <input type="file" class="form-control" id="imgInp" name="image">
+                    <img id="blah" src="#" height="150px" weight="150px" />
                     
                 </div>
             
@@ -55,14 +55,25 @@
                 }
             ?>
         </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
-            var loadFile = function(event) {
-                var output = document.getElementById('output');
-                output.src = URL.createObjectURL(event.target.files[0]);
-                output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
+            function readURL(input){
+                if(input.files && input.files[0]){
+                    var reader = new FileReader();
+
+                    reader.onload = function(e){
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
                 }
-            };
+            }
+
+            $("#imgInp").change(function() {
+                readURL(this);
+            });
         </script>
     </body>
 </html>
+
+
