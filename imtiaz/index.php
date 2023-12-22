@@ -7,11 +7,9 @@
     else if($_SESSION['user']=='employee'){
         header('Location: employee/dashboard.php');
     
-    }
+ }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,15 +46,15 @@
     </form>
     <?php
         include 'connection.php';
-        if($_POST['submit']){
+        if(isset($_POST['submit'])){
             $email = $_POST['email'];
             $pswd = $_POST['pswd'];
             
-            $query = "SELECT * FROM admins WHERE email='$email' AND password='$pswd' ";
+            $query = "SELECT * FROM admin WHERE email='$email' AND password='$pswd' ";
             $result = mysqli_query($con,$query);
             $admin = mysqli_fetch_array($result);
 
-            $query = "SELECT * FROM employees WHERE email='$email' AND password='$pswd' ";
+            $query = "SELECT * FROM employee WHERE email='$email' AND password='$pswd' ";
             $result = mysqli_query($con,$query);
             $employee = mysqli_fetch_array($result);
 
@@ -73,14 +71,10 @@
             else{
                 echo "<span class='text-center text-danger' >Invalid Email or Password!</span>";
             }
-
-
         }
-
     ?>
   </div>
-  <br>
-   
+  <br>  
 </div>
 <script>
         var button = document.getElementById("button");
@@ -131,7 +125,7 @@
                 document.getElementById("password-warning-span").innerHTML = "Your password is poor";
                 document.getElementById("password-danger-span").innerHTML = "";
                 document.getElementById("password-success-span").innerHTML = "";
-                button.disabled = true;
+                button.disabled = false;
                 
             }
             else{
