@@ -27,7 +27,7 @@
                 echo '<tr>
         
                 <td>'.$id.'</td>
-                <td> <img src='.$image.'> </td>
+                <td> <img src="images/'.$image.'"> </td>
                
               </tr> ' ;
             }
