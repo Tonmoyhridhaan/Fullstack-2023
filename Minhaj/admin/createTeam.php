@@ -39,28 +39,22 @@
             </div>
         </div>
         <?php
-        include '../connection.php';
-        if(isset($_POST['submit'])){
-            $name = $_POST['name'];
-            $height = $_POST['height'];
-            $weight = $_POST['weight'];
-            $age = $_POST['age'];
-        }
-        
-        foreach ($name as $key => $name) {
-            $name_p = $name;
-            $height_p = $height[$key];
-            $weight_p = $weight[$key];
-            $age_p= $age[$key];
-    
-            $query = "INSERT INTO team (name, height, weight, age) VALUES ('$name','$height','$weight','$age')";
-            if(mysqli_query($conn, $query)){
-                echo '<br><span style="color:blue;"> Successfull</span>';
-                
-            }
-        }
-        ?>
+            include '../connection.php';
+            if(isset($_POST['submit'])){
+                $name = $_POST['name'];
+                $height = $_POST['height'];
+                $weight = $_POST['weight'];
+                $age = $_POST['age'];
+                foreach ($name as $key => $value){
+                    $name_p = $name[$key];
+                    $query = "INSERT INTO team (name, height, weight, age) VALUES ('$name_p',$height[$key],$weight[$key],$age[$key])";
+                    if(mysqli_query($conn, $query)){
+                        echo '<br><span style="color:blue;"> Successfull</span>';
 
+                    }
+                }
+            }
+        ?>
 
             <script>
                 function addRow(){
@@ -74,7 +68,7 @@
                     var cell3 = row.insertCell(2);
                     var cell4 = row.insertCell(3);
                     var cell5 = row.insertCell(4);
-
+                    
                     cell1.innerHTML = '<input type="text" class="form-control"  name="name[]">';
                     cell2.innerHTML = '<input type="number" class="form-control"  name="height[]">';
                     cell3.innerHTML = '<input type="number" class="form-control"  name="weight[]">';
